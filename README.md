@@ -28,3 +28,12 @@ Task complete and/or deleted
 -No edit storage
 -Deletion
 New Tasks
+
+
+From Tristian:
+Learn React
+Create home dashboard
+Be able to add and store tasks
+Add the ability to edit tasks
+Learn whichever database language we are using
+Start to integrate the database

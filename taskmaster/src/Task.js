@@ -11,8 +11,9 @@ function Task(){
     <div>
         <h2>Name: {task.taskName}</h2>
         <p>
-            <ul>
-                <li>{task.taskDesc[0]}</li>
+            <ul> {task.taskDesc.map((t) => (
+                <li>{t}</li>
+                ))}
             </ul>
         </p>
         <p>

@@ -22,6 +22,7 @@ function App() {
 
   };
 
+
   return (
 
     <div>
@@ -34,7 +35,7 @@ function App() {
 
         <button onClick={handleDecrement}>Decrement</button>
 
-        <Task />
+        <Task taskName = 'Code' taskDesc = {["JavaScript","Html"]} taskDate = {new Date("2023-09-23T03:24:00")} />
 
     </div>
 

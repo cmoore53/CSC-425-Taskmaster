@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Task from './Task.js';
+import TaskList from './TaskList.js';
 
 import React, { useState } from 'react';
 
@@ -21,7 +22,11 @@ function App() {
     setCount(count - 1);
 
   };
-
+    const testTask = {
+    taskName: 'Code',
+    taskDesc: ["JavaScript","Html"],
+    taskDate: new Date("2023-09-23T03:24:00")
+    };
 
   return (
 
@@ -35,7 +40,9 @@ function App() {
 
         <button onClick={handleDecrement}>Decrement</button>
 
-        <Task taskName = 'Code' taskDesc = {["JavaScript","Html"]} taskDate = {new Date("2023-09-23T03:24:00")} />
+        <Task taskName = {testTask.taskName} taskDesc = {testTask.taskDesc} taskDate = {testTask.taskDate} />
+
+        <TaskList />
 
     </div>
 

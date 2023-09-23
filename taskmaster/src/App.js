@@ -27,6 +27,11 @@ function App() {
     taskDesc: ["JavaScript","Html"],
     taskDate: new Date("2023-09-23T03:24:00")
     };
+    const testTaskList = [
+    {key:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
+    {key:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2024-09-23T03:24:00')}
+    ]
+
 
   return (
 
@@ -40,9 +45,13 @@ function App() {
 
         <button onClick={handleDecrement}>Decrement</button>
 
+
+
         <Task taskName = {testTask.taskName} taskDesc = {testTask.taskDesc} taskDate = {testTask.taskDate} />
 
-        <TaskList />
+        <TaskList tasks = {testTaskList} />
+
+
 
     </div>
 

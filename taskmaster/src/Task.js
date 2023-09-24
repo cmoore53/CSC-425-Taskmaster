@@ -7,6 +7,9 @@ function Task(task){
     taskDate: date //new Date('2023-09-23T03:24:00')
     }*/
 
+    const [isEditing, setEditing] = useState(false);
+    //const [newName]
+
     return(
     <div>
         <h2>Name: {task.taskName}</h2>

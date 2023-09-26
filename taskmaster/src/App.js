@@ -10,7 +10,6 @@ import DashBoard from "./DashBoard";
 
 function App() {
 
-  };
     const testTask = {
     taskName: 'Code',
     taskDesc: ["JavaScript","Html"],
@@ -30,6 +29,6 @@ function App() {
       <TaskList tasks = {testTaskList} />
     </div>
   );
-}
+};
 
 export default App;

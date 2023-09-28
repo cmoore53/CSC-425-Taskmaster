@@ -1,9 +1,9 @@
 import React from 'react';
 import Task from './Task.js';
-function TaskList(tasks){
+function TaskList(props){
     return(
         <div>
-            {tasks.tasks.map((tl) => (
+            {props.tasks.map((tl) => (
             <Task taskName = {tl.taskName} taskDesc = {tl.taskDesc} taskDate = {tl.taskDate} />
             ))}
         </div>

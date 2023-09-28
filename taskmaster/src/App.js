@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Task from './Task.js';
 import TaskList from './TaskList.js';
+import AddTask from './AddTask.js';
 
 import React, { useState } from 'react';
 
@@ -10,24 +11,26 @@ import DashBoard from "./DashBoard";
 
 function App() {
 
-  };
     const testTask = {
     taskName: 'Code',
     taskDesc: ["JavaScript","Html"],
     taskDate: new Date("2023-09-23T03:24:00")
     };
-    const testTaskList = [
-    {key:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
-    {key:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2024-09-23T03:24:00')}
+
+    let testTaskList = [
+    {id:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
+    {id:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2023-09-24T03:24:00')}
     ]
+    const [taskls, setTaskls] = useState([testTaskList])
   return (
     <div>
         
-      <DashBoard/>
+        <DashBoard/>
 
-      <Task taskName = {testTask.taskName} taskDesc = {testTask.taskDesc} taskDate = {testTask.taskDate} />
+        <TaskList tasks = {taskls} />
 
-      <TaskList tasks = {testTaskList} />
+        <AddTask newTask = {testTask} taskList = {taskls} setTask = {setTaskls} />
+
     </div>
   );
 }

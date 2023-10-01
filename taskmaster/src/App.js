@@ -21,7 +21,12 @@ function App() {
     {id:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
     {id:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2023-09-24T03:24:00')}
     ]
+
     const [taskls, setTaskls] = useState([testTaskList])
+
+    const addTask = (newTask) => {
+        setTaskls(newTask)
+    }
   return (
     <div>
         
@@ -29,7 +34,7 @@ function App() {
 
         <TaskList tasks = {taskls} />
 
-        <AddTask newTask = {testTask} taskList = {taskls} setTask = {setTaskls} />
+        {/*<AddTask newTask = {testTask} taskList = {taskls} setTask = {setTaskls} />*/}
 
     </div>
   );

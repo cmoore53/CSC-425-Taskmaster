@@ -1,6 +1,6 @@
 import React from 'react';
 //('hello', ['world', '!'], new Date('1995-12-17T03:24:00'))
-function Task(props){
+function Task({taskName,taskDesc,taskDate}){
     /*const task = {
     taskName: name, //'Code',
     taskDesc: desc, //['HTML','JavaScript'],
@@ -9,15 +9,15 @@ function Task(props){
 
     return(
     <div>
-        <h2>Name: {props.taskName}</h2>
+        <h2>Name: {taskName}</h2>
         <p>
-            <ul> {props.taskDesc.map((t) => (
+            <ul> {taskDesc.map((t) => (
                 <li>{t}</li>
                 ))}
             </ul>
         </p>
         <p>
-        {props.taskDate.toDateString()}
+        {taskDate.toDateString()}
         </p>
     </div>
     )

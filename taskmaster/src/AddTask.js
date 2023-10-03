@@ -1,10 +1,10 @@
 import React from 'react';
 import Task from './Task.js';
 import TaskList from './TaskList.js';
-function AddTask({taskls, setTaskls}){
+function AddTask({newTask, tasks, setNewTaskls}){
     const addTask = () => {
-        const newTask = [...taskls, newTask]
-        setTaskls(newTask)
+        const newTaskls = [...tasks, newTask]
+        setNewTaskls(newTaskls)
     }
     return(
         <button onClick={addTask}>Add Task</button>

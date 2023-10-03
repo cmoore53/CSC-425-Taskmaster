@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4e498c9-3bb9-4d48-bae8-96b5fad1e0e3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskmaster/src/AddTask.js" beforeDir="false" afterPath="$PROJECT_DIR$/taskmaster/src/AddTask.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskmaster/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/taskmaster/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskmaster/src/Task.js" beforeDir="false" afterPath="$PROJECT_DIR$/taskmaster/src/Task.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskmaster/src/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/taskmaster/src/TaskList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

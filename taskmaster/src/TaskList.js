@@ -3,7 +3,7 @@ import Task from './Task.js';
 function TaskList({tasks}){
     return(
         <div>
-            {tasks[0].map((tl) => (
+            {tasks.map((tl) => (
             <Task taskName = {tl.taskName} taskDesc = {tl.taskDesc} taskDate = {tl.taskDate} />
             ))}
         </div>

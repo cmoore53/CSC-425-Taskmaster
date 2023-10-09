@@ -1,10 +1,18 @@
 import React from 'react';
 import Task from './Task.js';
-function TaskList(tasks){
+function TaskList({tasks, editTask}){
     return(
         <div>
-            {tasks.tasks.map((tl) => (
-            <Task taskName = {tl.taskName} taskDesc = {tl.taskDesc} taskDate = {tl.taskDate} />
+            {tasks.map((tl) => (
+            <div>
+                <Task 
+                taskName = {tl.taskName} 
+                taskDesc = {tl.taskDesc} 
+                taskDate = {tl.taskDate} 
+                
+                editTask = {editTask}/>
+            </div>
+            
             ))}
         </div>
     )

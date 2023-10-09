@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 //('hello', ['world', '!'], new Date('1995-12-17T03:24:00'))
-function Task(task){
-    /*const task = {
-    taskName: name, //'Code',
-    taskDesc: desc, //['HTML','JavaScript'],
-    taskDate: date //new Date('2023-09-23T03:24:00')
-    }*/
-
-        
-        /*
-            Possible modification? Edit Form => standalone .js?
-        */
+function Task({id, taskName, taskDesc, taskDate, editTask}){
 
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState("");
@@ -18,38 +8,23 @@ function Task(task){
     const [newDate, setNewDate] = useState("");
 
     function deleteTask(){
-        // Delete Task; remove from TaskList ??
+        // Delete Task || Likely move to App.js, then pass to TaskList.js
+        // ?? I thought someone else was to do this, 
+        //  but once Editing is functional I can "easily" work out Deleting
     }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        
-        setTask({
-            ...task,
-            taskName: newName,
-            taskDesc: newDesc,
-            taskDate: newDate
-        });
-
-        setNewName("");
-        setNewDesc("");
-        setNewDate("");
-
-        setEditing(false);
-      }
       
-    if(isEditing != true){
+    if(isEditing !== true){
         return(
             <div>
-                <h2>Name: {task.taskName}</h2>
+                <h2> {taskName}</h2>
                 <p>
-                    <ul> {task.taskDesc.map((t) => (
+                    <ul> {taskDesc.map((t) => (
                             <li>{t}</li>
                         ))}
                     </ul>
                 </p>
                 <p>
-                    {task.taskDate.toDateString()}
+                    {taskDate.toDateString()}
                 </p>
                 <button onClick={() => setEditing(true)}>EDIT</button>
                 <button onClick={() => deleteTask()}>DELETE</button>
@@ -58,16 +33,16 @@ function Task(task){
     }else{
         return(
             <div>
-                <form onSubmit={handleSubmit}>
+                <form>
                         {/* Title Input */}
                     <p>
                         <label>Title: 
                             <input 
-                                id = "editedTitleInput"
+                                id = {id}
                                 name = "editedTitleInput"
                                 type = "text"
-                                defaultValue = {task.taskName}
-                                placeholder={task.taskName}
+                                defaultValue = {taskName}
+                                placeholder={taskName}
 
                                 onChange={(e) => setNewName(e.target.value)}
                             />
@@ -79,12 +54,12 @@ function Task(task){
                         <label>Description: 
                             <br />
                             <textarea 
-                                id = "editedDescriptionInput"
+                                id = {id}
                                 name = "editedDescriptionInput"
                                 rows={3}
                                 cols={30}
-                                defaultValue = {task.taskDesc.join("\n")}
-                                placeholder={task.taskDesc.join("\n")}
+                                defaultValue = {taskDesc.join("\n")}
+                                placeholder={taskDesc.join("\n")}
 
                                 onChange={(e) => setNewDesc(e.target.value.split("\n"))}
                             />
@@ -96,20 +71,20 @@ function Task(task){
                     {/* Due Date Input */}
                     <label>Due Date: 
                             <input
-                                id = "editedDueDate"
+                                id = {id}
                                 name = "editedDueDate"
                                 type = "text"
-                                //task.taskDate.toString() works too...
-                                defaultValue = {task.taskDate.toDateString()}
-                                placeholder={task.taskDate.toDateString()}
-                                //defaultValue = {task.taskDate.toDateString()}
-                                //placeholder={task.taskDate.toDateString()}
+                                //taskDate.toString() works too...
+                                defaultValue = {taskDate.toDateString()}
+                                placeholder={taskDate.toDateString()}
+                                //defaultValue = {taskDate.toDateString()}
+                                //placeholder={taskDate.toDateString()}
 
                                 onChange={(e) => setNewDate(e.target.value)}
                             />
                     </label>
                     <br/>
-                    <button type = "submit">SAVE</button>
+                    <button onClick={() => editTask(id, newName, newDesc, newDate)}>SAVE</button>
                     <button onClick={() => setEditing(false)}>CANCEL</button>
                 </form>
             </div>

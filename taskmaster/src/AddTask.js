@@ -3,7 +3,7 @@ import Task from './Task.js';
 import TaskList from './TaskList.js';
 function AddTask({newTask, tasks, setNewTaskls}){
     const addTask = () => {
-        const newTaskls = [...tasks, newTask]
+        const newTaskls = [...tasks, newTask,]
         setNewTaskls(newTaskls)
     }
     return(

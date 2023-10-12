@@ -7,56 +7,46 @@ import AddTask from './AddTask.js';
 import React, { useState } from 'react';
 
 import ReactDOM from 'react-dom';
-import DashBoard from "./Dashboard";
+import DashBoard from "./DashBoard";
 
 function App() {
 
-    const testTask = {
-    taskName: 'Code',
-    taskDesc: ["JavaScript","Html"],
-    taskDate: new Date("2023-09-23T03:24:00")
-    };
-    const testTaskList = [
-    {key:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
-    {key:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2024-09-23T03:24:00')}
-    ]
+  const testTask = {
+  taskName: 'TITLE',
+  taskDesc: ["DESCRIPTION","GOES", "HERE"],
+  taskDate: (new Date('2023-09-24T03:24:00').toISOString().substring(0,10))
+  };
 
-    const [taskls, setTaskls] = useState(testTaskList)
+  let testTaskList = [
+  {id:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: (new Date('2023-09-23T03:24:00').toISOString().substring(0,10))},
+  {id:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: (new Date('2023-09-24T03:24:00').toISOString().substring(0,10))}
+  ]
 
-    const addTask = (newTask) => {
-        setTaskls(newTask)
-    }
+  const [taskls, setTaskls] = useState(testTaskList)
 
-    function editTask(id, newName, newDesc, newDate) {
-      const newTaskls = taskls.map((task) => {
-        // if this task has the same ID as the edited task
-        if (id === task.id) {
-          
-          return { ...task, 
-                      taskName: newName,
-                      taskDesc: newDesc,
-                      taskDate: newDate 
-                    };
-        }
-        return task;
-      });
-      setTaskls(newTaskls);
-    }
-    
-    /*
-    const deleteTask = (id) => {
-      const newTaskls = taskls.filter(task => task.id !== id);
-      setTaskls(newTaskls);
-    }
-    */
+  const addTask = (newTask) => {
+      setTaskls(newTask)
+  }
+
+  const handleEditTask = (editedTask) => {
+    // Update the task and clear the selection
+    setTaskls(taskls.map((task) => (task.id === editedTask.id ? editedTask : task)));
+  };
+
+  const handleDeleteTask = (taskId) => {
+    // Delete the task and clear the selection
+    setTaskls(taskls.filter((task) => task.id !== taskId));
+  };
+
   return (
     <div>
         
-      <DashBoard/>
+        <DashBoard/>
+        <AddTask newTask = {testTask} tasks = {taskls} setNewTaskls = {addTask} />
+        <TaskList tasks = {taskls} editTask = {handleEditTask} deleteTask = {handleDeleteTask} />
 
-      <TaskList tasks = {taskls} editTask = {editTask} /*deleteTask = {deleteTask}*//>
+        
 
-      <AddTask newTask = {testTask} tasks = {taskls} setNewTaskls = {addTask} />
     </div>
   );
 };

@@ -1,92 +1,109 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 //('hello', ['world', '!'], new Date('1995-12-17T03:24:00'))
-function Task(id, taskName, taskDesc, taskDate, editTask){
+//function Task({task, editTask, deleteTask}){
+const Task = ( task, {/* editTask, deleteTask */}) => {
+    
+    /*const task = {
+    taskName: name, //'Code',
+    taskDesc: desc, //['HTML','JavaScript'],
+    taskDate: date //new Date('2023-09-23T03:24:00')
+    }*/
 
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState("");
     const [newDesc, setNewDesc] = useState("");
     const [newDate, setNewDate] = useState("");
 
-    function deleteTask(){
-        // Delete Task || Likely move to App.js, then pass to TaskList.js
+    function startEdit(){
+        setNewName(task.taskName);
+        setNewDesc(task.taskDesc);
+        setNewDate(task.taskDate);
+
+        setEditing(true)
     }
-      
-    if(isEditing !== true){
+
+    const handleEdit = () => {
+        // I don't understand why / how this worked
+        // but it DID so I'm moving on
+
+        // editTask doesn't seem to be getting initialized? Should be drilled through TaskList to Task...
+        // whatever
+        task.editTask({  id: task.id,
+                    taskName: newName, 
+                    taskDesc: (newDesc.toString().split("\n")), 
+                    taskDate: newDate });
+        setNewName("");
+        setNewDesc("");
+        setNewDate("");
+    
+        setEditing(false)
+    }
+
+    const handleDelete = () => {
+        task.deleteTask(task.id);
+    }
+
+    if(isEditing == false){
         return(
-            <li>
-                <div>
-                    <h2> {taskName}</h2>
-                    <p>
-                        {taskDesc}
-                    </p>
-                    <p>
-                        {taskDate}
-                    </p>
-                    <button onClick={() => setEditing(true)}>EDIT</button>
-                    <button onClick={() => deleteTask()}>DELETE</button>
-                </div>  
-            </li>
+            <div>
+                <h2>{task.taskName}</h2>
+                <ul> 
+                    {task.taskDesc.map((t) => ( // <li key = {???}> TBC fix?
+                        <li>{t}</li>
+                    ))}
+                </ul>
+                <p> {/* TBC: Print format is differnt to input format | FIX*/}
+                {task.taskDate}
+                </p>
+                <button onClick={startEdit}>EDIT</button>
+                <button onClick = {handleDelete}>DELETE</button>
+            </div>
         )
     }else{
         return(
-            <li>
-                <div>
-                    <form>
-                            {/* Title Input */}
-                        <p>
-                            <label>Title: 
-                                <input 
-                                    id = {id}
-                                    name = "editedTitleInput"
-                                    type = "text"
-                                    defaultValue = {taskName}
-                                    placeholder={taskName}
+            <div>
+                <h3>
+                        <input 
+                            //id = "newTitleInput"
+                            //name = "newTitleInput"
+                            type = "text"
 
-                                    onChange={(e) => setNewName(e.target.value)}
-                                />
-                            </label>
-                        </p>
-                        
-                        {/* Description Input */}
-                        <p>
-                            <label>Description: 
-                                <br />
-                                <textarea 
-                                    id = {id}
-                                    name = "editedDescriptionInput"
-                                    rows={3}
-                                    cols={30}
-                                    defaultValue = {taskDesc.join("\n")}
-                                    placeholder={taskDesc.join("\n")}
+                            placeholder = {task.taskName}
+                            defaultValue = {task.taskName}
+                            //value = {newTitle}
 
-                                    onChange={(e) => setNewDesc(e.target.value.split("\n"))}
-                                />
-                            </label>
-                                
-                            
-                        </p>
-                        
-                        {/* Due Date Input */}
-                        <label>Due Date: 
-                                <input
-                                    id = {id}
-                                    name = "editedDueDate"
-                                    type = "text"
-                                    //taskDate.toString() works too...
-                                    defaultValue = {taskDate.toDateString()}
-                                    placeholder={taskDate.toDateString()}
-                                    //defaultValue = {taskDate.toDateString()}
-                                    //placeholder={taskDate.toDateString()}
+                            onChange={(e) => setNewName(e.target.value)}
+                        />    
+                    </h3>
+                    <textarea 
+                        //id = "newDescriptionInput"
+                        //name = "newDescriptionInput"
+                        rows = {5}
+                        columns = {30}
 
-                                    onChange={(e) => setNewDate(e.target.value)}
-                                />
-                        </label>
-                        <br/>
-                        <button onClick={() => editTask(id, newName, newDesc, newDate)}>SAVE</button>
-                        <button onClick={() => setEditing(false)}>CANCEL</button>
-                    </form>
-                </div>
-            </li>
+                        placeholder = {task.taskDesc.join("\n")}
+                        defaultValue = {task.taskDesc.join("\n")}
+                        //value = {newDescription}
+
+                        onChange={(e) => setNewDesc(e.target.value)}
+                    />
+                    <p>
+                        <input
+                            //id = "newDueDateInput"
+                            //name = "newDueDateInput"
+                            type="date"
+
+                            //placeholder = "DueDate" //{task.taskDate}
+                            defaultValue = {task.taskDate/*.toISOString().substring(0,10)*/}
+                            //value={task.dueDate}
+
+                            onChange={(e) => setNewDate(e.target.value)}
+                        />
+                    </p>
+                    
+                    <button onClick={handleEdit}>SAVE EDIT</button>
+                    <button onClick={() => setEditing(false)}>CANCEL</button>
+            </div>
         )
     }
 }

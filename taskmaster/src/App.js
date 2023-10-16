@@ -45,8 +45,6 @@ function App() {
         <AddTask newTask = {testTask} tasks = {taskls} setNewTaskls = {addTask} />
         <TaskList tasks = {taskls} editTask = {handleEditTask} deleteTask = {handleDeleteTask} />
 
-        
-
     </div>
   );
 };

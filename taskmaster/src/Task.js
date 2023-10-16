@@ -52,7 +52,7 @@ const Task = ( task, {/* editTask, deleteTask */}) => {
                         <li>{t}</li>
                     ))}
                 </ul>
-                <p> {/* TBC: Print format is differnt to input format | FIX*/}
+                <p> {/* TBC: Print format is different to input format | FIX*/}
                 {task.taskDate}
                 </p>
                 <button onClick={startEdit}>EDIT</button>

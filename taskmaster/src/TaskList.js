@@ -1,28 +1,16 @@
-import React from 'react';
-import Task from './Task.js';
-function TaskList({tasks, editTask, deleteTask}){
+   // TaskList.js
 
-    return(
-        <div>
-            <h1>List of Tasks:</h1>
-            <ul>
-                {tasks.map((task) => (
-                    <li key = {task.id}>
-                        <Task 
-                            key = {task.id}
-                            id = {task.id} 
+   import React from 'react';
 
-                            taskName = {task.taskName} 
-                            taskDesc = {task.taskDesc} 
-                            taskDate = {task.taskDate} 
-                            
-                            editTask = {editTask}
-                            deleteTask = {deleteTask}
-                        /> 
-                    </li> 
-                ))}
-            </ul>
-        </div>
-    )
-}
-export default TaskList;
+   const TaskList = ({ tasks, onTaskClick }) => (
+
+    <ul>
+        {tasks.map((task) => (
+            <li key={task.id} onClick={() => onTaskClick(task.id)}>
+                {task.title} - {task.completed ? 'Completed' : 'Pending'}
+            </li>
+        ))}
+    </ul>
+   );
+
+   export default TaskList;

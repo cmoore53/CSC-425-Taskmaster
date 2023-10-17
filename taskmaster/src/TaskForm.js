@@ -5,20 +5,20 @@ import React, { useState } from 'react';
 const TaskForm = ({ onTaskAdd }) => {
 
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState([]);
     const [dueDate, setDueDate] = useState('');
 
     const handleAddTask = () => {
         // Validate and add task
         if (title && description && dueDate) {
-            console.log(description)
+            //console.log(description)
             if(Array.isArray(description)){ // shouldn't be possible...
                 onTaskAdd({ title, description, dueDate })
             }else{
-            onTaskAdd({ title, description, dueDate });
+                onTaskAdd({ title, description, dueDate });
             }
             setTitle('');
-            setDescription('');
+            setDescription([]);
             setDueDate('');
         }
     };
@@ -42,7 +42,7 @@ const TaskForm = ({ onTaskAdd }) => {
             cols={30}
 
             placeholder="Description"
-            value={description}
+            value={description.join("\n")}
 
             onChange={(e) => setDescription(e.target.value.split("\n"))}
             />

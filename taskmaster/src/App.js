@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import Task from './Task';
+import DashBoard from './DashBoard';
 
 const App = () => {
   const [tasks, setTasks] = useState([
@@ -41,6 +42,7 @@ const App = () => {
 
   return (
     <div>
+      <DashBoard />
       <h1>TaskMaster</h1>
       <TaskForm onTaskAdd={handleAddTask} />
       <TaskList tasks={tasks} onTaskClick={handleTaskClick} />

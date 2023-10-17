@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import Task from './Task';
+import DashBoard from './DashBoard';
 
 const App = () => {
   const [tasks, setTasks] = useState([

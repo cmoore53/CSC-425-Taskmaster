@@ -41,6 +41,7 @@ const App = () => {
 
   return (
     <div>
+      <DashBoard>
       <h1>TaskMaster</h1>
       <TaskForm onTaskAdd={handleAddTask} />
       <TaskList tasks={tasks} onTaskClick={handleTaskClick} />

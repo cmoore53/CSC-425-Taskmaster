@@ -1,52 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
-import Task from './Task.js';
-import TaskList from './TaskList.js';
-import AddTask from './AddTask.js';
+// App.js
 
 import React, { useState } from 'react';
+import TaskList from './TaskList';
+import TaskForm from './TaskForm';
+import Task from './Task';
+import DashBoard from './DashBoard';
 
-import ReactDOM from 'react-dom';
-import DashBoard from "./DashBoard";
+const App = () => {
+  const [tasks, setTasks] = useState([
+    { title: "Task Example",
+      description:["Concise Task Description Here!"],
+      dueDate: (new Date().toISOString().substring(0,10)) },
+  ]);
+  const [selectedTask, setSelectedTask] = useState(null);
 
-function App() {
-
-  const testTask = {
-  taskName: 'TITLE',
-  taskDesc: ["DESCRIPTION","GOES", "HERE"],
-  taskDate: (new Date('2023-09-24T03:24:00').toISOString().substring(0,10))
+  const handleAddTask = (newTask) => {
+    // Create a new task with a unique ID and mark it as not completed
+    const task = { ...newTask, id: tasks.length + 1, completed: false };
+    setTasks([...tasks, task]);
   };
 
-  let testTaskList = [
-  {id:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: (new Date('2023-09-23T03:24:00').toISOString().substring(0,10))},
-  {id:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: (new Date('2023-09-24T03:24:00').toISOString().substring(0,10))}
-  ]
-
-  const [taskls, setTaskls] = useState(testTaskList)
-
-  const addTask = (newTask) => {
-      setTaskls(newTask)
-  }
+  const handleTaskClick = (taskId) => {
+    // Find and select the clicked task
+    const task = tasks.find((t) => t.id === taskId);
+    setSelectedTask(task);
+  };
 
   const handleEditTask = (editedTask) => {
     // Update the task and clear the selection
-    setTaskls(taskls.map((task) => (task.id === editedTask.id ? editedTask : task)));
+    setTasks(tasks.map((task) => (task.id === editedTask.id ? editedTask : task)));
+    setSelectedTask(null);
   };
 
   const handleDeleteTask = (taskId) => {
     // Delete the task and clear the selection
-    setTaskls(taskls.filter((task) => task.id !== taskId));
+    setTasks(tasks.filter((task) => task.id !== taskId));
+    setSelectedTask(null);
   };
+
+
 
   return (
     <div>
-        
-        <DashBoard/>
-        <AddTask newTask = {testTask} tasks = {taskls} setNewTaskls = {addTask} />
-        <TaskList tasks = {taskls} editTask = {handleEditTask} deleteTask = {handleDeleteTask} />
-
-        
-
+      <DashBoard />
+      <h1>TaskMaster</h1>
+      <TaskForm onTaskAdd={handleAddTask} />
+      <TaskList tasks={tasks} onTaskClick={handleTaskClick} />
+      
+      {selectedTask && (
+        <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+      )}
     </div>
   );
 };

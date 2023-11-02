@@ -3,7 +3,7 @@
    import React from 'react';
 
    const TaskList = ({ tasks, onTaskClick }) => (
-
+    <div class = "taskList">
     <ul>
         {tasks.map((task) => (
             <li key={task.id} onClick={() => onTaskClick(task.id)}>
@@ -11,6 +11,7 @@
             </li>
         ))}
     </ul>
+    </div>
    );
 
    export default TaskList;

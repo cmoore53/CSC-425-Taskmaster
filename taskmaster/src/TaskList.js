@@ -3,7 +3,7 @@
    import React from 'react';
 
    const TaskList = ({ tasks, onTaskClick }) => (
-    <div class = "taskList">
+    <div>
     <ul>
         {tasks.map((task) => (
             <li key={task.id} onClick={() => onTaskClick(task.id)}>

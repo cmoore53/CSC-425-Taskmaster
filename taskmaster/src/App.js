@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import Task from './Task';
+import './App.css';
 import DashBoard from './DashBoard';
 
 const App = () => {
@@ -45,8 +46,9 @@ const App = () => {
       <DashBoard />
       <h1>TaskMaster</h1>
       <TaskForm onTaskAdd={handleAddTask} />
+      <div class="taskList">
       <TaskList tasks={tasks} onTaskClick={handleTaskClick} />
-      
+      </div>
       {selectedTask && (
         <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
       )}

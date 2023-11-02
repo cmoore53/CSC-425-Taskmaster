@@ -9,7 +9,8 @@ import DashBoard from './DashBoard';
 const App = () => {
   const [tasks, setTasks] = useState([
     { title: "Task Example",
-      description:["Concise Task Description Here!"],
+      description:["Concise Task Description Here!", "Also, look!",
+                   "You can have multiple lines!", "Isn't that cool?!"],
       dueDate: (new Date().toISOString().substring(0,10)) },
   ]);
   const [selectedTask, setSelectedTask] = useState(null);

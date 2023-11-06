@@ -18,7 +18,7 @@ const Task = ({ task, onEdit, onDelete }) => {
              the title would change but all other fields would be deleted...
         */
         setNewTitle(task.title);
-        console.log(task.description)
+        //console.log(task.description)
         setNewDescription(task.description);
         setNewDueDate(task.dueDate);
 
@@ -113,7 +113,7 @@ const Task = ({ task, onEdit, onDelete }) => {
                             cols = {30}
 
                             placeholder = {task.description}
-                            defaultValue={task.description.join("\n")} // Array to String
+                            defaultValue={task.description/*.join("\n")*/} // Array to String
                             //value = {newDescription}
 
                             onChange={(e) => setNewDescription(e.target.value)}

@@ -43,41 +43,35 @@ const App = () => {
       //setTasks(response.data);
       */
      setTasks(response.data);
+     console.log(response.data);
     });
     
   }, []);
 
   const handleAddTask = (newTask) => {
-    // Create a new task with a unique ID 
-    const task = { ...newTask, /*id: tasks.length + 1*/};
-    // Front End [Local] ID, DIFFERS from server ID / DEPRECATED
-    
-
-    //console.log(task.title);
-    //console.log(task.description.join("\n"));
-    //console.log(task.dueDate);
 
     Axios.post("http://localhost:3001/create", {
-      //taskID: task.id, 
-      title: task.title,
-      description: task.description.join("\n"),
-      dueDate: task.dueDate,
+      //taskID: task.id,  // handled by server
+      title: newTask.title,
+      description: newTask.description.join("\n"),
+      dueDate: newTask.dueDate,
       userID: 1 // HARDCODED here: TBC; add login system
     }).then(() => {
+      setTasks([...tasks, newTask]);
+      console.log(newTask);
       console.log("successfully stored new task"); // Only add task on Front End if Back End works!
-      task = {... task, ID: getTaskID(task)}
-      setTasks([...tasks, task]);
     });
   };
 
   // TBC HERE?? need taskID to actually USE
-  const getTaskID = (task) => {
+ /* const getTaskID = (task) => {
     Axios.get("http://localhost:3001/tasks")
   };
+  */
 
   const handleTaskClick = (taskID) => {
     // Find and select the clicked task
-    const task = tasks.find((t) => t.id === taskID);
+    const task = tasks.find((t) => t.taskID === taskID);
     setSelectedTask(task);
   };
 

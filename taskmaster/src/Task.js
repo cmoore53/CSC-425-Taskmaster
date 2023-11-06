@@ -1,6 +1,7 @@
 // Task.js
 
 import React, { useState } from 'react';
+import './App.css';
 
 const Task = ({ task, onEdit, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +49,7 @@ const Task = ({ task, onEdit, onDelete }) => {
     if(isEditing !== true){
         if(Array.isArray(task.description)){ // task.description is ARRAY
             return(
-                <div>
+                <div class="TaskDescDiv">
                 <h3>{task.title}</h3>
                 <ul>
                     {task.description.map((descItem) => (

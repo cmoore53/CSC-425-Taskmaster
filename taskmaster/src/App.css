@@ -21,8 +21,14 @@ TaskList{
 }
 
 @media only screen and (max-width: 480px) {
-TaskList{
-  color:red;
+.TaskListDiv{
+  font-size: large;
+}
+.TaskDescDiv{
+  font-size: large;
+}
+button{
+  font-size: 16px;
 }
 h1{
   color:red;

@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 function DashBoard(){
     //This is the CSS for the title.
     const titlestyle = {

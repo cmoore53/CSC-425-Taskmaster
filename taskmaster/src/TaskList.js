@@ -1,9 +1,10 @@
    // TaskList.js
 
    import React from 'react';
+   import './App.css';
 
    const TaskList = ({ tasks, onTaskClick }) => (
-    <div>
+    <div class="TaskListDiv">
     <ul>
         {tasks.map((task) => (
             <li key={task.id} onClick={() => onTaskClick(task.id)}>

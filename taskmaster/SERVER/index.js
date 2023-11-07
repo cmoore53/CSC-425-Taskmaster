@@ -34,34 +34,62 @@ app.post("/create", (req, res) => {
     });
 });
 
-// Getting stored tasks
-app.get("/tasks", (req, res) => {
-    const userID = req.body.userID;
-    //db.query("SELECT * FROM tasks WHERE userID =" + userID, // TBC Login System. MySQL not liking search parameters?
-    db.query("SELECT * FROM tasks", // SELECTS all, not by user alone
+// Editing a Task
+app.post("/update", (req, res) => {
+
+    //console.log(req.body);
+
+    // editing a task 
+    const newTitle = req.body.newTitle;
+    const newDescription = req.body.newDescription;
+    const newDueDate = req.body.newDueDate;
+    const taskID = req.body.taskID;
+
+    const editStatement =   "UPDATE tasks SET title = ?, description = ?, dueDate = ? WHERE taskID = ?";
+    const editedValues = [newTitle, newDescription, newDueDate, taskID];
+
+    db.query(editStatement, editedValues,
     (err, result) => {
         if(err){
             console.log(err);
         }else{
-            console.log(result);
+            res.send("Value(s) edited.")
+        }
+    });
+});
+
+// Getting stored tasks
+app.post("/tasks", (req, res) => {
+    const userID = req.body.userID;
+    const values = [userID, 0];
+
+    db.query("SELECT * FROM tasks WHERE (userID = ? AND softDelete = ?)", // TBC Login System. MySQL not liking search parameters?
+        values,
+    //db.query("SELECT * FROM tasks", // SELECTS all, not by user alone
+    (err, result) => {
+        if(err){
+            console.log(err);
+        }else{
             res.send(result);
         }
     })
 });
 
-app.post("/edit", (req, res) => {
+app.post("/delete", (req, res) => {
 
-    const newTitle = req.body.newTitle;
-    const newDescription = req.body.newDescription;
-    const newDueDate = req.body.newDueDate;
+    // [soft] deleting a task 
+    const softDelete = 1; //BOOLEAN TRUE => TINYINT 1 in MySQL
+    const taskID = req.body.taskID;
 
-    db.query("UPDATE tasks SET (title, description, dueDate) VALUES (?, ?, ?)",
-    [newTitle, newDescription, newDueDate],
+    const editStatement =   "UPDATE tasks SET softDelete = ? WHERE taskID = ?";
+    const editedValues = [softDelete, taskID];
+
+    db.query(editStatement, editedValues,
     (err, result) => {
         if(err){
             console.log(err);
         }else{
-            res.send("Value edited.")
+            res.send("Task deleted.")
         }
     });
 });

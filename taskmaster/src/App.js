@@ -2,7 +2,9 @@
 
 
 /* Found Bugs:
-    Date from retrieved data is weird... NOT truncated
+    Date from retrieved data is weird... NOT truncated | v/
+      Now truncated, but wrong order. Will likely need to parse to date and reformat :c
+    Date also doesn't fill editDate input right... Edits don't save if you don't change it
 */
 import React, { useState, useEffect } from 'react';
 import TaskList from './TaskList';
@@ -20,54 +22,34 @@ const App = () => {
     */
   ]);
   const [selectedTask, setSelectedTask] = useState(null);
-
   useEffect(() => { // Get Stored Tasks on boot up
-    Axios.get("http://localhost:3001/tasks", {
-      userID: 1 // TBC Add in Log in system
-    }).then((response) => {
-      /*console.log(response);
-      response.data.forEach(element => {
-        console.log(element);
-
-        const task = {
-          taskID: element.taskID,
-          title: element.title,
-          description: element.description.split("\n"),
-          dueDate: element.dueDate
-        }
-        
-        setTasks(...tasks, task);
-      });
-      console.log("Tasks:")
-      console.log(tasks);
-      //setTasks(response.data);
-      */
-     setTasks(response.data);
-     console.log(response.data);
-    });
-    
+    syncTaskList();
   }, []);
 
-  const handleAddTask = (newTask) => {
+  function syncTaskList(){
+    Axios.post("http://localhost:3001/tasks", {
+      userID: 1 // TBC Add in Log in system
+    }).then((response) => {
+      setTasks(response.data);
+    });
+  }
 
+  // adding a task
+  const handleAddTask = (newTask) => {
     Axios.post("http://localhost:3001/create", {
-      //taskID: task.id,  // handled by server
+      //taskID: task.taskID,  // handled by server
       title: newTask.title,
       description: newTask.description.join("\n"),
       dueDate: newTask.dueDate,
       userID: 1 // HARDCODED here: TBC; add login system
     }).then(() => {
+      console.log(newTask.dueDate);
       setTasks([...tasks, newTask]);
-      console.log(newTask);
+      //console.log(newTask);
       console.log("successfully stored new task"); // Only add task on Front End if Back End works!
+      // Avoids having to syncTaskList
     });
   };
-
-  // TBC HERE?? need taskID to actually USE
- /* const getTaskID = (task) => {
-    Axios.get("http://localhost:3001/tasks")
-  };
-  */
 
   const handleTaskClick = (taskID) => {
     // Find and select the clicked task
@@ -77,23 +59,29 @@ const App = () => {
 
   const handleEditTask = (editedTask) => {
     // Update the task and clear the selection
-    console.log(editedTask.description);
-    Axios.post("http://localhost:3001/edit", {
+    Axios.post("http://localhost:3001/update", {
+      taskID: editedTask.taskID,
       newTitle: editedTask.title,
       newDescription: editedTask.description.join("\n"),
       newDueDate: editedTask.dueDate
     }).then(() => {
       console.log("successfully edited task");
-      //setTasks(tasks.map((task) => (task.id === editedTask.id ? editedTask : task)));
       setSelectedTask(null);
+      syncTaskList();
     });
     
   };
 
   const handleDeleteTask = (taskID) => {
     // Delete the task and clear the selection
-    setTasks(tasks.filter((task) => task.ID !== taskID));
-    setSelectedTask(null);
+
+    Axios.post("http://localhost:3001/delete", {
+      taskID: taskID
+    }).then(() => {
+      console.log("successfully deleted task");
+      setTasks(tasks.filter((task) => task.taskID !== taskID));
+      setSelectedTask(null);
+    });
   };
 
 

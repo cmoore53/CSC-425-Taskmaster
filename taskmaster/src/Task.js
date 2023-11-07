@@ -18,7 +18,7 @@ const Task = ({ task, onEdit, onDelete }) => {
              the title would change but all other fields would be deleted...
         */
         setNewTitle(task.title);
-        console.log(task.description)
+        //console.log(task.description)
         setNewDescription(task.description);
         setNewDueDate(task.dueDate);
 
@@ -27,15 +27,17 @@ const Task = ({ task, onEdit, onDelete }) => {
 
     const handleEditTask = () => {
         if(Array.isArray(newDescription)){ // newDescription is Array
-            onEdit({id: task.id,
+            onEdit({
+                taskID: task.taskID,
                 title: newTitle, 
                 description: newDescription, 
                 dueDate: newDueDate });
         }else{ // newDescription is String
-            onEdit({id: task.id,
-                    title: newTitle, 
-                    description: newDescription.split("\n"), 
-                    dueDate: newDueDate });
+            onEdit({
+                taskID: task.taskID,
+                title: newTitle, 
+                description: newDescription.split("\n"), 
+                dueDate: newDueDate });
         }
         
         setNewTitle("");
@@ -52,15 +54,15 @@ const Task = ({ task, onEdit, onDelete }) => {
                 <h3>{task.title}</h3>
                 <ul>
                     {task.description.map((descItem) => (
-                        <li key = {descItem.id}>
+                        <li key = {descItem.taskID}>
                             {descItem}
                         </li>
                     ))}
                 </ul>
-                <p>Due Date: {task.dueDate}</p>
+                <p>Due Date: {task.dueDate.substring(0, 10)}</p>
                 
                 <button onClick={(startEdit)}>EDIT</button>
-                <button onClick={() => onDelete(task.id)}>DELETE</button>
+                <button onClick={() => onDelete(task.taskID)}>DELETE</button>
                 </div>    
             )
         }else{
@@ -69,15 +71,15 @@ const Task = ({ task, onEdit, onDelete }) => {
                 <h3>{task.title}</h3>
                 <ul>
                     {task.description.split("/n").map((descItem) => (
-                        <li key = {descItem.id}>
+                        <li key = {descItem.taskID}>
                             {descItem}
                         </li>
                     ))}
                 </ul>
-                <p>Due Date: {task.dueDate}</p>
+                <p>Due Date: {task.dueDate.substring(0, 10)}</p>
                 
                 <button onClick={(startEdit)}>EDIT</button>
-                <button onClick={() => onDelete(task.id)}>DELETE</button>
+                <button onClick={() => onDelete(task.taskID)}>DELETE</button>
                 </div>    
             )
         }
@@ -113,7 +115,7 @@ const Task = ({ task, onEdit, onDelete }) => {
                             cols = {30}
 
                             placeholder = {task.description}
-                            defaultValue={task.description.join("\n")} // Array to String
+                            defaultValue={task.description/*.join("\n")*/} // Array to String
                             //value = {newDescription}
 
                             onChange={(e) => setNewDescription(e.target.value)}

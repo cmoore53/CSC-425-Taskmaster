@@ -5,21 +5,18 @@ import React, { useState } from 'react';
 const TaskForm = ({ onTaskAdd }) => {
 
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState([]);
-    const [dueDate, setDueDate] = useState('');
+    const [description, setDescription] = useState("");
+    const [dueDate, setDueDate] = useState(new Date());
 
     const handleAddTask = () => {
         // Validate and add task
         if (title && description && dueDate) {
             //console.log(description)
-            if(Array.isArray(description)){ // shouldn't be possible...
-                onTaskAdd({ title, description, dueDate })
-            }else{
-                onTaskAdd({ title, description, dueDate });
-            }
-            setTitle('');
-            setDescription([]);
-            setDueDate('');
+            onTaskAdd({ title, description, dueDate });
+            
+            setTitle("");
+            setDescription("");
+            setDueDate("");
         }
     };
 
@@ -37,19 +34,20 @@ const TaskForm = ({ onTaskAdd }) => {
             
             <br/>
             <textarea
-            // type="text"
             rows={10}
             cols={30}
 
             placeholder="Description"
-            value={description.join("\n")}
+            value={description}
 
-            onChange={(e) => setDescription(e.target.value.split("\n"))}
+            onChange={(e) => setDescription(e.target.value)}
             />
 
             <br/>
             <input
             type="date"
+
+
             placeholder="Due Date"
             value={dueDate}
 

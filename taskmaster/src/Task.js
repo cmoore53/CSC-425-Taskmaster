@@ -26,64 +26,42 @@ const Task = ({ task, onEdit, onDelete }) => {
     }
 
     const handleEditTask = () => {
-        if(Array.isArray(newDescription)){ // newDescription is Array
+        if((task.title && task.description && task.dueDate)){ // Failed attempt at validity checking, does nothing
             onEdit({
                 taskID: task.taskID,
                 title: newTitle, 
                 description: newDescription, 
-                dueDate: newDueDate });
-        }else{ // newDescription is String
-            onEdit({
-                taskID: task.taskID,
-                title: newTitle, 
-                description: newDescription.split("\n"), 
-                dueDate: newDueDate });
-        }
+                dueDate: newDueDate 
+            });
+            
+            setNewTitle("");
+            setNewDescription("");
+            setNewDueDate("");
         
-        setNewTitle("");
-        setNewDescription("");
-        setNewDueDate("");
-    
-        setIsEditing(false)
+            setIsEditing(false)
+        }
     }
 
     if(isEditing !== true){
-        if(Array.isArray(task.description)){ // task.description is ARRAY
-            return(
-                <div>
+        return(
+            <div>
                 <h3>{task.title}</h3>
                 <ul>
-                    {task.description.map((descItem) => (
+                    {task.description.split("\n").map((descItem) => (
                         <li key = {descItem.taskID}>
                             {descItem}
                         </li>
                     ))}
                 </ul>
-                <p>Due Date: {task.dueDate.substring(0, 10)}</p>
+                <p>Due Date: {new Date(task.dueDate).toLocaleDateString('en-US').substring(0,10)}</p>
                 
                 <button onClick={(startEdit)}>EDIT</button>
                 <button onClick={() => onDelete(task.taskID)}>DELETE</button>
-                </div>    
-            )
-        }else{
-            return(
-                <div>
-                <h3>{task.title}</h3>
-                <ul>
-                    {task.description.split("/n").map((descItem) => (
-                        <li key = {descItem.taskID}>
-                            {descItem}
-                        </li>
-                    ))}
-                </ul>
-                <p>Due Date: {task.dueDate.substring(0, 10)}</p>
-                
-                <button onClick={(startEdit)}>EDIT</button>
-                <button onClick={() => onDelete(task.taskID)}>DELETE</button>
-                </div>    
-            )
-        }
+            </div>    
+        )
+        
     }else{
+        console.log(new Date(task.dueDate).toISOString().substring(0,10));
         return(
             <div>
                 {/*<form>*/}
@@ -115,7 +93,7 @@ const Task = ({ task, onEdit, onDelete }) => {
                             cols = {30}
 
                             placeholder = {task.description}
-                            defaultValue={task.description/*.join("\n")*/} // Array to String
+                            defaultValue={task.description}
                             //value = {newDescription}
 
                             onChange={(e) => setNewDescription(e.target.value)}
@@ -132,10 +110,10 @@ const Task = ({ task, onEdit, onDelete }) => {
                                 type="date"
 
                                 placeholder="Due Date"
-                                defaultValue={task.dueDate}
+                                defaultValue={new Date(task.dueDate).toISOString().substring(0,10)}
                                 //value={task.dueDate}
 
-                                onChange={(e) => setNewDueDate(e.target.value)}
+                                onChange={(e) => setNewDueDate(new Date(e.target.value).toISOString().substring(0,10))}
                             />
                         </label>
                     </p>

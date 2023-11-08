@@ -42,7 +42,7 @@ app.post("/update", (req, res) => {
     // editing a task 
     const newTitle = req.body.newTitle;
     const newDescription = req.body.newDescription;
-    const newDueDate = req.body.newDueDate;
+    const newDueDate = new Date(req.body.newDueDate);
     const taskID = req.body.taskID;
 
     const editStatement =   "UPDATE tasks SET title = ?, description = ?, dueDate = ? WHERE taskID = ?";

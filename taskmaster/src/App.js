@@ -2,9 +2,7 @@
 
 
 /* Found Bugs:
-    Date from retrieved data is weird... NOT truncated | v/
-      Now truncated, but wrong order. Will likely need to parse to date and reformat :c
-    Date also doesn't fill editDate input right... Edits don't save if you don't change it
+    
 */
 import React, { useState, useEffect } from 'react';
 import TaskList from './TaskList';
@@ -39,11 +37,10 @@ const App = () => {
     Axios.post("http://localhost:3001/create", {
       //taskID: task.taskID,  // handled by server
       title: newTask.title,
-      description: newTask.description.join("\n"),
+      description: newTask.description,
       dueDate: newTask.dueDate,
       userID: 1 // HARDCODED here: TBC; add login system
     }).then(() => {
-      console.log(newTask.dueDate);
       setTasks([...tasks, newTask]);
       //console.log(newTask);
       console.log("successfully stored new task"); // Only add task on Front End if Back End works!
@@ -62,7 +59,7 @@ const App = () => {
     Axios.post("http://localhost:3001/update", {
       taskID: editedTask.taskID,
       newTitle: editedTask.title,
-      newDescription: editedTask.description.join("\n"),
+      newDescription: editedTask.description,
       newDueDate: editedTask.dueDate
     }).then(() => {
       console.log("successfully edited task");

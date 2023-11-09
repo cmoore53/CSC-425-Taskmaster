@@ -7,7 +7,7 @@
     <ul>
         {tasks.map((task) => (
             <li key={task.taskID} onClick={() => onTaskClick(task.taskID)}>
-                {task.title} - {task.completed ? 'Completed' : 'Pending'}
+                {task.title} - {"[" + new Date(task.dueDate).toLocaleDateString('en-US').substring(0,10) + "]"}
             </li>
         ))}
     </ul>

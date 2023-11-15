@@ -75,6 +75,24 @@ app.post("/tasks", (req, res) => {
     })
 });
 
+
+app.post("/login", (req, res) => {
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const values = [username, password];
+
+    db.query("SELECT userID FROM tasks WHERE (username = ? AND password = ?)", // TBC Login System. MySQL not liking search parameters?
+            values,
+        //db.query("SELECT * FROM tasks", // SELECTS all, not by user alone
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
+                res.send(result);
+            }
+        })
+});
+
 app.post("/delete", (req, res) => {
 
     // [soft] deleting a task 

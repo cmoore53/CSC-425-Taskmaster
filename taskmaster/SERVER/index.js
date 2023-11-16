@@ -59,7 +59,7 @@ app.post("/update", (req, res) => {
 });
 
 // Getting stored tasks
-app.post("/tasks", (req=, res) => {
+app.post("/tasks", (req, res) => {
     const userID = req.body.userID;
     const values = [userID, 0];
 
@@ -77,20 +77,27 @@ app.post("/tasks", (req=, res) => {
 
 
 app.post("/login", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    console.log("huh");
+    const username = req.body.user.username;
+    const password = req.body.user.password;
     const values = [username, password];
+    console.log("req: ");
+    console.log(req);
+    console.log("Body: ");
+    console.log(req.body);
 
     db.query("SELECT userID FROM users WHERE (username = ? AND password = ?)",
             values,
         (err, result) => {
             if(err){
                 console.log(err);
-            }else if (result != null){
+            }else/* if (result != null)*/{
+                console.log("result");
+                console.log(result);
                 res.send(result);
-            }if (result == null){
+            }/*if (result == null){
             res.send(-1)
-            }
+            }*/
         })
 });
 
@@ -99,7 +106,7 @@ app.post("/createAccount", (req, res) => {
     const password = req.body.password;
     const values = [username, username, password];
 
-    db.query("IF NOT EXISTS(SELECT 1 FROM users WHERE (username = ?)) BEGIN INSERT INTO users (username, password) VALUES (?,?) END",
+    db.query("IF EXISTS(SELECT 1 FROM users WHERE (username = ?)) THEN END ELSE THEN INSERT INTO users (username, password) VALUES (?,?) END",
             values,
         (err, result) => {
             if(err){

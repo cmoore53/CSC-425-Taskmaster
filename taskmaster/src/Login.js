@@ -4,14 +4,15 @@ import DashBoard from './DashBoard';
 
 const Login = () => {
 
-    const user = {
+    /*const user = {
         username: "",
         password: "",
         userID: -1
     };
-    const [userID, setUserID] = useState();
+    const [userID, setUserID] = useState(user.userID);
     const [username, setUsername] = useState(user.username);
-    const [password, setPassword] = useState(user.password);
+    const [password, setPassword] = useState(user.password);*/
+    const [user, setUser] = useState({userID: -1, username: "", password: ""})
 
 // login button function
   const handleLogin = (user) => {
@@ -19,7 +20,7 @@ const Login = () => {
       username: user.username,
       password: user.password
     }).then((userID) => {
-        setUserID(userID);
+        setUser(userID, user.username, user.password);
     });
   };
 
@@ -41,16 +42,16 @@ return (
         <input
         type="text"
         placeholder="Username"
-        value={username}
+        value={user.username}
 
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => setUser({userID: user.userID, username: e.target.value, password: user.password})}
         />
         <input
         type="text"
         placeholder="Password"
-        value={password}
+        value={user.password}
 
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setUser({userID: user.userID, username: user.username, password: e.target.value})}
         />
         </div>
 

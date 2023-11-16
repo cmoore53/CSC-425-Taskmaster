@@ -59,7 +59,7 @@ app.post("/update", (req, res) => {
 });
 
 // Getting stored tasks
-app.post("/tasks", (req, res) => {
+app.post("/tasks", (req=, res) => {
     const userID = req.body.userID;
     const values = [userID, 0];
 
@@ -77,8 +77,8 @@ app.post("/tasks", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-    const username = req.body.user.username;
-    const password = req.body.user.password;
+    const username = req.body.username;
+    const password = req.body.password;
     const values = [username, password];
 
     db.query("SELECT userID FROM users WHERE (username = ? AND password = ?)",
@@ -86,15 +86,17 @@ app.post("/login", (req, res) => {
         (err, result) => {
             if(err){
                 console.log(err);
-            }else{
+            }else if (result != null){
                 res.send(result);
+            }if (result == null){
+            res.send(-1)
             }
         })
 });
 
 app.post("/createAccount", (req, res) => {
-    const username = req.body.user.username;
-    const password = req.body.user.password;
+    const username = req.body.username;
+    const password = req.body.password;
     const values = [username, username, password];
 
     db.query("IF NOT EXISTS(SELECT 1 FROM users WHERE (username = ?)) BEGIN INSERT INTO users (username, password) VALUES (?,?) END",
@@ -102,7 +104,7 @@ app.post("/createAccount", (req, res) => {
         (err, result) => {
             if(err){
                 console.log(err);
-            }else{
+            }else if (result != null){
                 res.send(result);
             }
         })

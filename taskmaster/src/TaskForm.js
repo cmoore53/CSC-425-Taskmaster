@@ -26,6 +26,8 @@ const TaskForm = ({ onTaskAdd }) => {
         <div>
             <input
             type="text"
+            maxLength={45}
+
             placeholder="Title"
             value={title}
 
@@ -36,6 +38,7 @@ const TaskForm = ({ onTaskAdd }) => {
             <textarea
             rows={10}
             cols={30}
+            maxLength={900}
 
             placeholder="Description"
             value={description}

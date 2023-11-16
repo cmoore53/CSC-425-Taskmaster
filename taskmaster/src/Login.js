@@ -37,6 +37,8 @@ return (
      <div>
         <DashBoard />
         <h1>TaskMaster</h1>
+        <h2> {user.username}</h2>
+        <h2> {user.password}</h2>
 
         <div>
         <input

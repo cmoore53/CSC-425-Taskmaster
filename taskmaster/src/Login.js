@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import DashBoard from './DashBoard';
 
 const Login = () => {
 
-    const [user, setUser] = useState({
+    const user = {
         username: "",
-        password: ""
-    });
+        password: "",
+        userID: -1
+    };
     const [userID, setUserID] = useState();
+    const [username, setUsername] = useState(user.username);
+    const [password, setPassword] = useState(user.password);
 
 // login button function
   const handleLogin = (user) => {
@@ -18,12 +22,41 @@ const Login = () => {
         setUserID(userID);
     });
   };
-}return (
+
+  // create account button function
+    const handleCreateAccount = (user) => {
+      Axios.post("http://localhost:3001/createAccount", {
+        username: user.username,
+        password: user.password
+      }).then(() => {
+          handleLogin(user)
+      });
+    };
+return (
      <div>
-       <DashBoard />
-       <h1>TaskMaster</h1>
-       <button onClick={handleLogin}>Login</button>
-       <button onClick={handleCreateAccount}>Create Account</button>
+        <DashBoard />
+        <h1>TaskMaster</h1>
+
+        <div>
+        <input
+        type="text"
+        placeholder="Username"
+        value={username}
+
+        onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+        type="text"
+        placeholder="Password"
+        value={password}
+
+        onChange={(e) => setPassword(e.target.value)}
+        />
+        </div>
+
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleCreateAccount}>Create Account</button>
      </div>
    );
+};
 export default Login

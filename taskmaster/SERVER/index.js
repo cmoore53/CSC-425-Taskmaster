@@ -81,9 +81,24 @@ app.post("/login", (req, res) => {
     const password = req.body.user.password;
     const values = [username, password];
 
-    db.query("SELECT userID FROM tasks WHERE (username = ? AND password = ?)", // TBC Login System. MySQL not liking search parameters?
+    db.query("SELECT userID FROM users WHERE (username = ? AND password = ?)",
             values,
-        //db.query("SELECT * FROM tasks", // SELECTS all, not by user alone
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
+                res.send(result);
+            }
+        })
+});
+
+app.post("/createAccount", (req, res) => {
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const values = [username, username, password];
+
+    db.query("IF NOT EXISTS(SELECT 1 FROM users WHERE (username = ?)) BEGIN INSERT INTO users (username, password) VALUES (?,?) END",
+            values,
         (err, result) => {
             if(err){
                 console.log(err);

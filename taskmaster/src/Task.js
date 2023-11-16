@@ -73,6 +73,7 @@ const Task = ({ task, onEdit, onDelete }) => {
                                 //id = "newTitleInput"
                                 //name = "newTitleInput"
                                 type = "text"
+                                maxLength={45}
 
                                 placeholder = {task.title}
                                 defaultValue={task.title}
@@ -89,6 +90,8 @@ const Task = ({ task, onEdit, onDelete }) => {
                             <textarea 
                             //id = "newDescriptionInput"
                             //name = "newDescriptionInput"
+                            maxLength={900}
+
                             rows = {10}
                             cols = {30}
 
@@ -108,7 +111,7 @@ const Task = ({ task, onEdit, onDelete }) => {
                                 //id = "newDueDateInput"
                                 //name = "newDueDateInput"
                                 type="date"
-
+                                    
                                 placeholder="Due Date"
                                 defaultValue={new Date(task.dueDate).toISOString().substring(0,10)}
                                 //value={task.dueDate}

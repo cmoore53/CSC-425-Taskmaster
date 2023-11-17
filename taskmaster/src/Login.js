@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import DashBoard from './DashBoard';
+import App from './App';
 
 const Login = () => {
 
@@ -32,8 +33,10 @@ const Login = () => {
         console.log(response)
         if(response.data[0] == null)
             setErrorMsg("Your username or password is incorrect.");
-        else if(response.data[0].userID != null)
+        else if(response.data[0].userID != null){
             setUser({userID: response.data[0].userID, username: user.username, password: user.password});
+            setErrorMsg("");
+        }
         else
             setErrorMsg("An unexpected error has occurred!");
     });
@@ -66,37 +69,40 @@ const Login = () => {
       console.log(response);
       });
     };
+if(user.userID == -1 && user.userID != null){
+    return (
+         <div>
+            <DashBoard />
+            <h1>TaskMaster</h1>
+            <h2>{user.username}</h2>
+            <h2>{user.password}</h2>
+            <h2>{user.userID}</h2>
+            <h4>{errorMsg}</h4>
 
-return (
-     <div>
-        <DashBoard />
-        <h1>TaskMaster</h1>
-        <h2>{user.username}</h2>
-        <h2>{user.password}</h2>
-        <h2>{user.userID}</h2>
-        <h4>{errorMsg}</h4>
+            <div>
+            <input
+            type="text"
+            placeholder="Username"
+            value={user.username}
 
-        <div>
-        <input
-        type="text"
-        placeholder="Username"
-        value={user.username}
+            onChange={(e) => setUser({userID: user.userID, username: e.target.value, password: user.password})}
+            />
+            <input
+            type="text"
+            placeholder="Password"
+            value={user.password}
 
-        onChange={(e) => setUser({userID: user.userID, username: e.target.value, password: user.password})}
-        />
-        <input
-        type="text"
-        placeholder="Password"
-        value={user.password}
-
-        onChange={(e) => setUser({userID: user.userID, username: user.username, password: e.target.value})}
-        />
-        </div>
-        {console.log("Login72")}
-        {console.log(user)}
-        <button onClick={handleLogin}>Login</button>
-        <button onClick={handleCheckAccount}>Create Account</button>
-     </div>
-   );
+            onChange={(e) => setUser({userID: user.userID, username: user.username, password: e.target.value})}
+            />
+            </div>
+            {console.log("Login72")}
+            {console.log(user)}
+            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleCheckAccount}>Create Account</button>
+         </div>
+       );
+}else{
+    <App />
+}
 };
 export default Login

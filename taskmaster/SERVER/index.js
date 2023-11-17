@@ -101,17 +101,35 @@ app.post("/login", (req, res) => {
         })
 });
 
-app.post("/createAccount", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const values = [username, username, password];
+app.post("/checkAccount", (req, res) => {
+    const username = req.body.user.username;
+    const values = [username];
+    console.log("result index 107");
 
-    db.query("IF EXISTS(SELECT 1 FROM users WHERE (username = ?)) THEN END ELSE THEN INSERT INTO users (username, password) VALUES (?,?) END",
+    db.query("SELECT * FROM users WHERE (username = ?)",
             values,
         (err, result) => {
             if(err){
                 console.log(err);
-            }else if (result != null){
+            }else{
+                console.log("result index 114");
+                console.log(result);
+                res.send(result);
+            }
+        })
+});
+
+app.post("/createAccount", (req, res) => {
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const values = [username, password];
+
+    db.query("INSERT INTO users (username, password) VALUES (?,?)",
+            values,
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
                 res.send(result);
             }
         })

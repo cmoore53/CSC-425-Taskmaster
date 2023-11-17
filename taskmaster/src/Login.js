@@ -13,6 +13,7 @@ const Login = () => {
     const [username, setUsername] = useState(user.username);
     const [password, setPassword] = useState(user.password);*/
     const [user, setUser] = useState({userID: -1, username: "", password: ""})
+    const [errorMsg, setErrorMsg] = useState("")
 
 // login button function
   const handleLogin = () => {
@@ -29,19 +30,43 @@ const Login = () => {
         console.log(user)
         console.log("Login 30")
         console.log(response)
-        setUser({userID: response.data[0].userID, username: user.username, password: user.password});
+        if(response.data[0] == null)
+            setErrorMsg("Your username or password is incorrect.");
+        else if(response.data[0].userID != null)
+            setUser({userID: response.data[0].userID, username: user.username, password: user.password});
+        else
+            setErrorMsg("An unexpected error has occurred!");
     });
   };
 
   // create account button function
-    const handleCreateAccount = () => {
-      Axios.post("http://localhost:3001/createAccount", {
-        username: user.username,
-        password: user.password
-      }).then(() => {
-          handleLogin()
+    const handleCheckAccount = () => {
+      Axios.post("http://localhost:3001/checkAccount", {
+      user: user
+      }).then((response) => {
+        console.log("response")
+        console.log(response)
+        console.log(response.data)
+        console.log(response.data[0])
+        if(response.data[0] == null){
+            console.log("null")
+            handleCreateAccount()
+            handleLogin()
+        }else
+            setErrorMsg("Username already exists")
       });
     };
+
+    // create account button helper function
+    const handleCreateAccount = () => {
+      Axios.post("http://localhost:3001/createAccount", {
+      user: user
+      }).then((response) => {
+      console.log("Account Create Response: ");
+      console.log(response);
+      });
+    };
+
 return (
      <div>
         <DashBoard />
@@ -49,6 +74,7 @@ return (
         <h2>{user.username}</h2>
         <h2>{user.password}</h2>
         <h2>{user.userID}</h2>
+        <h4>{errorMsg}</h4>
 
         <div>
         <input
@@ -66,9 +92,10 @@ return (
         onChange={(e) => setUser({userID: user.userID, username: user.username, password: e.target.value})}
         />
         </div>
+        {console.log("Login72")}
         {console.log(user)}
         <button onClick={handleLogin}>Login</button>
-        <button onClick={handleCreateAccount}>Create Account</button>
+        <button onClick={handleCheckAccount}>Create Account</button>
      </div>
    );
 };

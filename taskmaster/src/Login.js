@@ -103,7 +103,7 @@ if(user.userID == -1 && user.userID != null){
        );
 }else{
 return(
-    <App />
+    <App loginUserID = {user.userID} />
     )
 }
 };

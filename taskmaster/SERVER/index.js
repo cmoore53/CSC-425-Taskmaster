@@ -75,6 +75,66 @@ app.post("/tasks", (req, res) => {
     })
 });
 
+
+app.post("/login", (req, res) => {
+    console.log("huh");
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const values = [username, password];
+    console.log("req: ");
+    console.log(req);
+    console.log("Body: ");
+    console.log(req.body);
+
+    db.query("SELECT userID FROM users WHERE (username = ? AND password = ?)",
+            values,
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else/* if (result != null)*/{
+                console.log("result");
+                console.log(result);
+                res.send(result);
+            }/*if (result == null){
+            res.send(-1)
+            }*/
+        })
+});
+
+app.post("/checkAccount", (req, res) => {
+    const username = req.body.user.username;
+    const values = [username];
+    console.log("result index 107");
+
+    db.query("SELECT * FROM users WHERE (username = ?)",
+            values,
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
+                console.log("result index 114");
+                console.log(result);
+                res.send(result);
+            }
+        })
+});
+
+app.post("/createAccount", (req, res) => {
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const values = [username, password];
+
+    db.query("INSERT INTO users (username, password) VALUES (?,?)",
+            values,
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
+                res.send(result);
+            }
+        })
+});
+
 app.post("/delete", (req, res) => {
 
     // [soft] deleting a task 

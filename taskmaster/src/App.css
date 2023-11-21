@@ -1,18 +1,114 @@
 .App {
+  font-size: 16px;
+}
+
+.Task {
+  padding-left: 15px;
+  background-color: #8ce6d5;
+  width: 255px;
+  height: 300px;
+  margin-left: 10px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 2px 4px #7f60b5, .4em .5em .5em #608ab5;
+}
+
+.add-button {
+  padding: 10px 20px;
+  font-size: 16px;
   text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #21cc8d;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 6px #078557, .15em .4em .5em #0d7359;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.add-button:hover {
+  background-color: #11ab8f;
+  box-shadow: 0 6px #046956, .15em .4em .5em #0d7359;
 }
 
-.App-link {
-  color: #61dafb;
+.add-button:active {
+  background-color: #11ab8f;
+  box-shadow: 0 3px #046956, .15em .2em .5em #0d7359;
+  transform: translateY(3px);
+}
+
+.edit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #2121ca;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px #070783;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.edit-button:hover {
+  background-color: #4812b5;
+  box-shadow: 0 8px #360b8c;
+}
+
+.edit-button:active {
+  background-color: #4812b5;
+  box-shadow: 0 5px #360b8c;
+  transform: translateY(3px);
+}
+
+.delete-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #f73b48;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px #b81d28;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.delete-button:hover {
+  background-color: #d60040;
+  box-shadow: 0 8px #a60233;
+}
+
+.delete-button:active {
+  background-color: #d60040;
+  box-shadow: 0 5px #a60233;
+  transform: translateY(3px);
+}
+
+.text-area {
+  margin-top: 10px;
+  resize: none;
+  box-shadow: inset 0.2em 0.2em 0.5em #b1c1cc;
+  border: none;
+  border-radius: 10px;
+}
+
+.text-title {
+  margin-left: 35px;
+  margin-top: 10px;
+  box-shadow: inset 0.2em 0.1em 0.3em #b1c1cc;
+  border: none;
+  border-radius: 5px;
+}
+
+.date-box {
+  box-shadow: inset 0.2em 0.1em 0.3em #b1c1cc;
+  border: none;
+  border-radius: 3px;
 }

@@ -1,55 +1,101 @@
+// App.js
+
+
+/* Found Bugs:
+
+*/
+import React, { useState, useEffect } from 'react';
+import TaskList from './TaskList';
+import TaskForm from './TaskForm';
+import Task from './Task';
+import DashBoard from './DashBoard';
+import Axios from 'axios';
 import './App.css';
-import Task from './Task.js';
-import TaskList from './TaskList.js';
 
-import React, { useState } from 'react';
-
-import ReactDOM from 'react-dom';
-import DashBoard from "./DashBoard";
-
-function App() {
-
-    const testTask = {
-    taskName: 'Code',
-    taskDesc: ["JavaScript","Html"],
-    taskDate: new Date("2023-09-23T03:24:00")
-    };
-    const testTaskList = [
-    {key:1, taskName: 'Code', taskDesc: ['HTML','JavaScript'], taskDate: new Date('2023-09-23T03:24:00')},
-    {key:2, taskName: 'Code2', taskDesc: ['HTML2','JavaScript2'], taskDate: new Date('2024-09-23T03:24:00')}
-    ]
-
-    /*No idea if this would work, will change later. This is an idea
-
-    const [complete] = useState(0);
-    const markComplete = () => {
-        complete = true;
-    };
-
-    const markIncomplete = () => {
-        complete = false;
-    };
-
-    const deleteTask = (task) => {
-        setTask(tasks.filter((task) => task !== task));
-    };
+const App = () => {
+  const [tasks, setTasks] = useState([
+    /*{ title: "Task Example",
+      description:["Concise Task Description Here!", "Also, look!",
+                   "You can have multiple lines!", "Isn't that cool?!"],
+      dueDate: (new Date().toISOString().substring(0,10)) }
     */
+  ]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  useEffect(() => { // Get Stored Tasks on boot up
+    syncTaskList();
+  }, []);
+
+  function syncTaskList(){
+    Axios.post("http://localhost:3001/tasks", {
+      userID: loginUserID // TBC Add in Log in system
+    }).then((response) => {
+      setTasks(response.data);
+    });
+  }
+
+  // adding a task
+  const handleAddTask = (newTask) => {
+    Axios.post("http://localhost:3001/create", {
+      //taskID: task.taskID,  // handled by server
+      title: newTask.title,
+      description: newTask.description,
+      dueDate: newTask.dueDate,
+      userID: loginUserID // HARDCODED here: TBC; add login system
+    }).then(() => {
+      setTasks([...tasks, newTask]);
+      //console.log(newTask);
+      console.log("successfully stored new task"); // Only add task on Front End if Back End works!
+      // Avoids having to syncTaskList
+    });
+  };
+
+  const handleTaskClick = (taskID) => {
+    // Find and select the clicked task
+    const task = tasks.find((t) => t.taskID === taskID);
+    setSelectedTask(task);
+  };
+
+  const handleEditTask = (editedTask) => {
+    // Update the task and clear the selection
+    Axios.post("http://localhost:3001/update", {
+      taskID: editedTask.taskID,
+      newTitle: editedTask.title,
+      newDescription: editedTask.description,
+      newDueDate: editedTask.dueDate
+    }).then(() => {
+      console.log("successfully edited task");
+      setSelectedTask(null);
+      syncTaskList();
+    });
+
+  };
+
+  const handleDeleteTask = (taskID) => {
+    // Delete the task and clear the selection
+
+    Axios.post("http://localhost:3001/delete", {
+      taskID: taskID
+    }).then(() => {
+      console.log("successfully deleted task");
+      setTasks(tasks.filter((task) => task.taskID !== taskID));
+      setSelectedTask(null);
+    });
+  };
+
+
 
   return (
-    <div>
+    <div className="App">
+      <DashBoard />
+	  <br/>
+	  <div className="Task">
+		<TaskForm onTaskAdd={handleAddTask} />
+		<TaskList tasks={tasks} onTaskClick={handleTaskClick} />
 
-      <DashBoard/>
-
-      <Task taskName = {testTask.taskName} taskDesc = {testTask.taskDesc} taskDate = {testTask.taskDate} />
-
-      /*Idea for complete button: <button onCLick={() => {
-                                    if (task = !complete) task.markComplete;
-                                    else task.markIncomplete;
-                                   }markComplete(task)}>X</button>
-
-      Idea for delete button:     <button onClick={() => deleteTask(task)}>X</button>*/
-
-      <TaskList tasks = {testTaskList} />
+		{selectedTask && (
+		  <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+		)}
+	  </div>
     </div>
   );
 };

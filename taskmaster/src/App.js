@@ -10,8 +10,9 @@ import TaskForm from './TaskForm';
 import Task from './Task';
 import DashBoard from './DashBoard';
 import Axios from 'axios';
+import './App.css';
 
-const App = ({loginUserID}) => {
+const App = () => {
   const [tasks, setTasks] = useState([
     /*{ title: "Task Example",
       description:["Concise Task Description Here!", "Also, look!",
@@ -23,7 +24,6 @@ const App = ({loginUserID}) => {
   useEffect(() => { // Get Stored Tasks on boot up
     syncTaskList();
   }, []);
-
 
   function syncTaskList(){
     Axios.post("http://localhost:3001/tasks", {
@@ -67,7 +67,7 @@ const App = ({loginUserID}) => {
       setSelectedTask(null);
       syncTaskList();
     });
-    
+
   };
 
   const handleDeleteTask = (taskID) => {
@@ -85,15 +85,17 @@ const App = ({loginUserID}) => {
 
 
   return (
-    <div>
+    <div className="App">
       <DashBoard />
-      <h1>TaskMaster</h1>
-      <TaskForm onTaskAdd={handleAddTask} />
-      <TaskList tasks={tasks} onTaskClick={handleTaskClick} />
-      
-      {selectedTask && (
-        <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
-      )}
+	  <br/>
+	  <div className="Task">
+		<TaskForm onTaskAdd={handleAddTask} />
+		<TaskList tasks={tasks} onTaskClick={handleTaskClick} />
+
+		{selectedTask && (
+		  <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+		)}
+	  </div>
     </div>
   );
 };

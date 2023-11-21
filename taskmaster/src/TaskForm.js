@@ -1,6 +1,7 @@
 // TaskForm.js
 
 import React, { useState } from 'react';
+import './App.css';
 
 const TaskForm = ({ onTaskAdd }) => {
 
@@ -13,7 +14,7 @@ const TaskForm = ({ onTaskAdd }) => {
         if (title && description && dueDate) {
             //console.log(description)
             onTaskAdd({ title, description, dueDate });
-            
+
             setTitle("");
             setDescription("");
             setDueDate("");
@@ -24,30 +25,30 @@ const TaskForm = ({ onTaskAdd }) => {
 
     return (
         <div>
-            <input
+            <input class="text-title"
             type="text"
             maxLength={45}
 
-            placeholder="Title"
+            placeholder=" Title"
             value={title}
 
             onChange={(e) => setTitle(e.target.value)}
             />
-            
+
             <br/>
-            <textarea
+            <textarea class="text-area"
             rows={10}
             cols={30}
             maxLength={900}
 
-            placeholder="Description"
+            placeholder=" Description"
             value={description}
 
             onChange={(e) => setDescription(e.target.value)}
             />
 
             <br/>
-            <input
+            <input class="date-box"
             type="date"
 
 
@@ -56,7 +57,7 @@ const TaskForm = ({ onTaskAdd }) => {
 
             onChange={(e) => setDueDate(e.target.value)}
             />
-            <button onClick={handleAddTask}>Add Task</button>
+				<button class="add-button" onClick={handleAddTask}>Add Task</button>
         </div>
     );
 };

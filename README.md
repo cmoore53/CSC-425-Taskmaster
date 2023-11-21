@@ -37,3 +37,9 @@ Be able to add and store tasks
 Add the ability to edit tasks
 Learn whichever database language we are using
 Start to integrate the database
+
+
+From Oli: 
+Design dashboard layout on paper (completed)
+Implement aesthetic/theme elements 
+Animations/effects in button presses 

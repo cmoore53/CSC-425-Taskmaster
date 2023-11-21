@@ -55,8 +55,8 @@ const Task = ({ task, onEdit, onDelete }) => {
                 </ul>
                 <p>Due Date: {new Date(task.dueDate).toLocaleDateString('en-US').substring(0,10)}</p>
                 
-                <button onClick={(startEdit)}>EDIT</button>
-                <button onClick={() => onDelete(task.taskID)}>DELETE</button>
+                <button class="edit-button" onClick={(startEdit)}>EDIT</button>
+                <button class="delete-button" onClick={() => onDelete(task.taskID)}>DELETE</button>
             </div>    
         )
         

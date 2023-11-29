@@ -10,8 +10,9 @@ import TaskForm from './TaskForm';
 import Task from './Task';
 import DashBoard from './DashBoard';
 import Axios from 'axios';
+import './App.css';
 
-const App = () => {
+const App = ({loginUserID}) => {
   const [tasks, setTasks] = useState([
     /*{ title: "Task Example",
       description:["Concise Task Description Here!", "Also, look!",
@@ -26,7 +27,7 @@ const App = () => {
 
   function syncTaskList(){
     Axios.post("http://localhost:3001/tasks", {
-      userID: 1 // TBC Add in Log in system
+      userID: loginUserID // TBC Add in Log in system
     }).then((response) => {
       setTasks(response.data);
     });
@@ -39,7 +40,7 @@ const App = () => {
       title: newTask.title,
       description: newTask.description,
       dueDate: newTask.dueDate,
-      userID: 1 // HARDCODED here: TBC; add login system
+      userID: loginUserID // HARDCODED here: TBC; add login system
     }).then(() => {
       setTasks([...tasks, newTask]);
       //console.log(newTask);
@@ -66,7 +67,7 @@ const App = () => {
       setSelectedTask(null);
       syncTaskList();
     });
-    
+
   };
 
   const handleDeleteTask = (taskID) => {
@@ -84,15 +85,17 @@ const App = () => {
 
 
   return (
-    <div>
+    <div className="App">
       <DashBoard />
-      <h1>TaskMaster</h1>
-      <TaskForm onTaskAdd={handleAddTask} />
-      <TaskList tasks={tasks} onTaskClick={handleTaskClick} />
-      
-      {selectedTask && (
-        <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
-      )}
+	  <br/>
+	  <div className="Task">
+		<TaskForm onTaskAdd={handleAddTask} />
+		<TaskList tasks={tasks} onTaskClick={handleTaskClick} />
+
+		{selectedTask && (
+		  <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+		)}
+	  </div>
     </div>
   );
 };

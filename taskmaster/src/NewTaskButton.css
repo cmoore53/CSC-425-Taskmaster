@@ -1,0 +1,90 @@
+.new-button.btn-primary{
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #21cc8d;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #078557, .15em .4em .5em #0d7359;
+    margin-left: 20px;
+    margin-top: 10px;
+    
+}
+
+.new-button.btn-primary:hover {
+    background-color: #11ab8f;
+    box-shadow: 0 6px #046956, .15em .4em .5em #0d7359;
+}
+
+.new-button.btn-primary:active {
+    background-color: #11ab8f;
+    box-shadow: 0 3px #046956, .15em .2em .5em #0d7359;
+    transform: translateY(3px);
+}
+
+.modal-header{
+    background-color: #8ce6d5;
+}
+.modal-footer{
+    background-color: #8ce6d5;
+}
+
+.modal-body{
+    background-color: #8ce6d5;
+}
+
+.close-button.btn-primary{
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #f73b48;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #b81d28;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.close-button.btn-primary:hover {
+    background-color: #d60040;
+    box-shadow: 0 6px #a60233;
+}
+
+.close-button.btn-primary:active {
+    background-color: #d60040;
+    box-shadow: 0 6px #a60233;
+    transform: translateY(3px);
+}
+
+.save-button.btn-primary{
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #21cc8d;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #078557;
+    margin-left: 20px;
+    margin-top: 10px;
+    
+}
+
+.save-button.btn-primary:hover {
+    background-color: #11ab8f;
+    box-shadow: 0 6px #046956;
+}
+
+.save-button.btn-primary:active {
+    background-color: #11ab8f;
+    box-shadow: 0 3px #046956;
+    transform: translateY(3px);
+}

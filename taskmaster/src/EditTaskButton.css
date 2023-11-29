@@ -1,0 +1,26 @@
+
+.custom-button.btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    background-color: #2121ca;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px #070783;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.custom-button.btn-primary:hover {
+    background-color: #4812b5;
+    box-shadow: 0 8px #360b8c;
+}
+
+.custom-button.btn-primary:active {
+    background-color: #4812b5;
+    box-shadow: 0 5px #360b8c;
+    transform: translateY(3px);
+}

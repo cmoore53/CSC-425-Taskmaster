@@ -11,6 +11,9 @@ import Task from './Task';
 import DashBoard from './DashBoard';
 import Axios from 'axios';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NewTaskButton from './NewTaskButton';
+
 
 const App = ({loginUserID}) => {
   const [tasks, setTasks] = useState([
@@ -46,6 +49,7 @@ const App = ({loginUserID}) => {
       //console.log(newTask);
       console.log("successfully stored new task"); // Only add task on Front End if Back End works!
       // Avoids having to syncTaskList
+      syncTaskList();
     });
   };
 
@@ -78,7 +82,7 @@ const App = ({loginUserID}) => {
     }).then(() => {
       console.log("successfully deleted task");
       setTasks(tasks.filter((task) => task.taskID !== taskID));
-      setSelectedTask(null);
+      //setSelectedTask(null);
     });
   };
 
@@ -89,13 +93,14 @@ const App = ({loginUserID}) => {
       <DashBoard />
 	  <br/>
 	  <div className="Task">
-		<TaskForm onTaskAdd={handleAddTask} />
-		<TaskList tasks={tasks} onTaskClick={handleTaskClick} />
-
+    <NewTaskButton onTaskAdd={handleAddTask} />
+		{/*<TaskForm onTaskAdd={handleAddTask} />*/}
+		<TaskList tasks={tasks} onTaskClick={handleTaskClick} onDelete={handleDeleteTask} onEdite={handleEditTask} />
+    {/*
 		{selectedTask && (
 		  <Task task={selectedTask} onEdit={handleEditTask} onDelete={handleDeleteTask} />
-		)}
-	  </div>
+    )}*/}
+    </div>
     </div>
   );
 };

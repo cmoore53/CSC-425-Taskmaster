@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import Button from 'react-bootstrap/Button';
 import DashBoard from './DashBoard';
+import Modal from 'react-bootstrap/Modal';
 import App from './App';
+import './Login.css';
 
 const Login = () => {
 
@@ -15,6 +18,9 @@ const Login = () => {
     const [password, setPassword] = useState(user.password);*/
     const [user, setUser] = useState({userID: -1, username: "", password: ""})
     const [errorMsg, setErrorMsg] = useState("")
+    const [show, setShow] = useState(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 // login button function
   const handleLogin = () => {
@@ -70,7 +76,34 @@ const Login = () => {
       });
     };
 if(user.userID == -1 && user.userID != null){
+    
     return (
+        <Modal show={show} onHide={handleClose} backdrop = "static">
+          <Modal.Header><Modal.Title>Login</Modal.Title></Modal.Header>
+          <Modal.Body>
+            <input
+              type="text"
+              placeholder="Username"
+              value={user.username}
+
+              onChange={(e) => setUser({userID: user.userID, username: e.target.value, password: user.password})}
+              />
+              <input
+              type="text"
+              placeholder="Password"
+              value={user.password}
+
+              onChange={(e) => setUser({userID: user.userID, username: user.username, password: e.target.value})}
+              />
+          </Modal.Body>
+          <Modal.Footer>
+            {console.log("Login72")}
+            {console.log(user)}
+            <Button className="login-button" varient="primary" onClick={handleLogin}>Login</Button>
+            <Button className="account-button" varient="primary" onClick={handleCheckAccount}>Create Account</Button>
+          </Modal.Footer>
+        </Modal>
+        /*
          <div>
             <DashBoard />
             <h1>TaskMaster</h1>
@@ -100,6 +133,7 @@ if(user.userID == -1 && user.userID != null){
             <button onClick={handleLogin}>Login</button>
             <button onClick={handleCheckAccount}>Create Account</button>
          </div>
+         */
        );
 }else{
 return(

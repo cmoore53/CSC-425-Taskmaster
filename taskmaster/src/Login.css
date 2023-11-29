@@ -1,0 +1,52 @@
+.login-button.btn-primary{
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #21cc8d;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #078557;
+    margin-left: 10px;
+    margin-top: 5px;
+    
+}
+
+.login-button.btn-primary:hover {
+    background-color: #11ab8f;
+    box-shadow: 0 6px #046956;
+}
+
+.login-button.btn-primary:active {
+    background-color: #11ab8f;
+    box-shadow: 0 3px #046956;
+    transform: translateY(3px);
+}
+
+.account-button.btn-primary{
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    background-color: #2121ca;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px #070783;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.account-button.btn-primary:hover {
+    background-color: #4812b5;
+    box-shadow: 0 6px #360b8c;
+}
+
+.account-button.btn-primary:active {
+    background-color: #4812b5;
+    box-shadow: 0 6px #360b8c;
+    transform: translateY(3px);
+}

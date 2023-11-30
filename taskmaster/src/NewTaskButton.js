@@ -5,7 +5,12 @@ import './NewTaskButton.css';
 
 function NewTaskButton({onTaskAdd}){
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setTitle("");
+        setDescription("");
+        setDueDate("");
+        setShow(false)
+    };
     const handleShow = () => setShow(true);
 
     const [title, setTitle] = useState('');
@@ -21,6 +26,7 @@ function NewTaskButton({onTaskAdd}){
             setTitle("");
             setDescription("");
             setDueDate("");
+            handleClose();
         }
     };
 
@@ -29,7 +35,7 @@ function NewTaskButton({onTaskAdd}){
         <Button className="new-button" variant="primary" onClick={handleShow} style={{ position: 'fixed', top: '10px', right: '10px', zIndex: '1000'}}>
         New Task
         </Button>
-        <Modal show={show} onHide={handleClose} backdrop="static">
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard="false">
             <Modal.Header>
                 <Modal.Title>New Task</Modal.Title>
             </Modal.Header>
@@ -79,7 +85,7 @@ function NewTaskButton({onTaskAdd}){
             </Modal.Body>
             <Modal.Footer>
                 <Button className="close-button" variant='primary' onClick={handleClose}>Close</Button>
-                <Button className= "save-button" variant="primary" onClick={() => { handleAddTask(); handleClose(); }}>Save Task</Button>
+                <Button className= "save-button" variant="primary" onClick={() => { handleAddTask() }}>Save Task</Button>
             </Modal.Footer>
         </Modal>
         </>

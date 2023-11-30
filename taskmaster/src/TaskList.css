@@ -4,6 +4,7 @@
 .accordion-button:focus{
     z-index: 0;
 }
+
 .delete-button.btn-primary{
     padding: 10px 20px;
     font-size: 16px;
@@ -17,6 +18,7 @@
     box-shadow: 0 8px #b81d28;
     margin-left: 15px;
     margin-top: 5px;
+    
 }
 
 .delete-button.btn-primary:hover {

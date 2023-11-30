@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './EditTaskButton.css';
 
-function EditTaskButton({ selectedTask, onEdit }) {
+function EditTaskButton({ selectedTask, onEdit, onModalOpen }) {
     const [show, setShow] = useState(false);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -28,20 +28,20 @@ function EditTaskButton({ selectedTask, onEdit }) {
     setIsEditing(true);
    });*/
    function startEdit(){
-    //"Clear" Edit Fields
-    /*
-         onChange={(e) => setNew|InsertFieldHere|(e.target.value)}
-         ... Above only updates on change, so if the below fields were truly "cleared" {aka set to ""}
-         and the user only changed the Title of a task, 
-         the title would change but all other fields would be deleted...
-    */
-    setNewTitle(selectedTask.title);
-    //console.log(task.description)
-    setNewDescription(selectedTask.description);
-    setNewDueDate(selectedTask.dueDate);
+        //"Clear" Edit Fields
+        /*
+            onChange={(e) => setNew|InsertFieldHere|(e.target.value)}
+            ... Above only updates on change, so if the below fields were truly "cleared" {aka set to ""}
+            and the user only changed the Title of a task, 
+            the title would change but all other fields would be deleted...
+        */
+        setNewTitle(selectedTask.title);
+        //console.log(task.description)
+        setNewDescription(selectedTask.description);
+        setNewDueDate(selectedTask.dueDate);
 
-    setIsEditing(true)
-}
+        setIsEditing(true)
+    }
     
 
     const handleEditTask = () => {
@@ -66,11 +66,11 @@ function EditTaskButton({ selectedTask, onEdit }) {
 
     return (
         <>
-            <Button className="custom-button" variant="primary" onClick={() => { startEdit(); handleShow(); }}>
+            <Button className="custom-button" variant="primary" onClick={() => { startEdit(); handleShow(); onModalOpen(); }}>
                 Edit
             </Button>
 
-            <Modal show={show} onHide={handleClose} backdrop = "static">
+            <Modal show={show} onHide={handleClose} backdrop = "static" keyboard="false">
                 <Modal.Header>
                     <Modal.Title>Edit</Modal.Title>
                 </Modal.Header>
@@ -132,10 +132,10 @@ function EditTaskButton({ selectedTask, onEdit }) {
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className="close-button" variant="primary" onClick={() => { setIsEditing(false); handleClose(); }}>
+                    <Button className="close-button" variant="primary" onClick={() => { setIsEditing(false); handleClose(); onModalOpen(); }}>
                         Close
                     </Button>
-                    <Button className="save-button" variant="primary" onClick={() => { handleEditTask(); handleClose(); }}>
+                    <Button className="save-button" variant="primary" onClick={() => { handleEditTask(); handleClose(); onModalOpen(); }}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

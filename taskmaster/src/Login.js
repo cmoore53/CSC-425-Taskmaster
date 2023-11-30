@@ -78,7 +78,7 @@ const Login = () => {
 if(user.userID == -1 && user.userID != null){
     
     return (
-        <Modal show={show} onHide={handleClose} backdrop = "static">
+        <Modal show={show} onHide={handleClose} backdrop = "static" keyboard="false">
           <Modal.Header><Modal.Title>Login</Modal.Title></Modal.Header>
           <Modal.Body>
             <input
